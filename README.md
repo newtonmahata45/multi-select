@@ -16,7 +16,7 @@ The Multiselect  is a customizable dropdown element with checkboxes that allows 
 2. Navigate to the project directory.
 3. Install the dependencies by running the following command: npm i
 4. Start the development server.
-5. The Multiselect will be available at `http://[127.0.0.1:5173/](http://127.0.0.1:5173/)`.
+5. The Multiselect will be available at `http://127.0.0.1:5173/`.
 
 
 
