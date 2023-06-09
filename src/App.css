@@ -58,22 +58,10 @@
 label {
   display: block;
   margin-bottom: 8px;
-}
-
-input[type="checkbox"] {
-  margin-right: 8px;
   cursor: pointer;
 }
-/*
-input[type="text"] {
-  border: 0px solid #ccc;
-  height: 35px;
-  background-color: transparent;
-}
-input[type="text"]:focus{
-  outline: none;
-}
-*/
+
+
 .search-bar {
   background: white;
   backdrop-filter: blur(10px);
@@ -105,5 +93,7 @@ input[type="text"]:focus{
 }
 .search-bar input:focus {
   outline: none;
-  
+}
+input[type="checkbox"] {
+  margin-right: 8px;
 }

@@ -80,7 +80,7 @@
 // };
 
 // export default Multiselect;
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Multiselect = ({ options, value, readonly }) => {
   const [selectedValues, setSelectedValues] = useState(value);
@@ -90,7 +90,10 @@ const Multiselect = ({ options, value, readonly }) => {
   const handleCheckboxChange = (event) => {
     const { value: checkboxValue, checked } = event.target;
     if (checked) {
-      setSelectedValues((prevSelectedValues) => [...prevSelectedValues, checkboxValue]);
+      setSelectedValues((prevSelectedValues) => [
+        ...prevSelectedValues,
+        checkboxValue,
+      ]);
     } else {
       setSelectedValues((prevSelectedValues) =>
         prevSelectedValues.filter((val) => val !== checkboxValue)
@@ -99,47 +102,56 @@ const Multiselect = ({ options, value, readonly }) => {
   };
 
   const handleSearchChange = (event) => {
+    setDropdownOpen(true);
     setSearchValue(event.target.value);
   };
-  const filteredOptions = options.filter((option) => option.toLowerCase().includes(searchValue.toLowerCase()));
+  const filteredOptions = options.filter((option) =>
+    option.toLowerCase().includes(searchValue.toLowerCase())
+  );
   return (
-    <div className='multiselect'>
-    <div className="search-bar" >
-      <i className={`fas fa-search`}></i>
-      <input
-        type="text"
-        placeholder="Search"
-        value={searchValue}
-        onChange={handleSearchChange}
-      />
-    </div>
-         <div className="selected-values">
-            {selectedValues.length > 0 ? (
-            selectedValues.map((value) => (
-              <span key={value}>{value}, </span>
-            ))
-          ) : (
-            <span>No country Selected </span>
-          )}
-        </div>
-      <div className="select-box" onClick={()=>setDropdownOpen(!dropdownOpen)}>
+    <div className="multiselect">
+      <div className="search-bar">
+        <i className={`fas fa-search`}></i>
+        <input
+          type="text"
+          placeholder="Search"
+          value={searchValue}
+          onChange={handleSearchChange}
+        />
+      </div>
+      <div className="selected-values">
+        {selectedValues.length > 0 ? (
+          selectedValues.map((value) => <span key={value}>{value}, </span>)
+        ) : (
+          <span>No country Selected </span>
+        )}
+      </div>
+      <div
+        className="select-box"
+        onClick={() => setDropdownOpen(!dropdownOpen)}
+      >
         <span>Select from dropdown</span>
         <div className="dropdown-icon">
-          <i className={`fas fa-chevron-${dropdownOpen ? 'up' : 'down'}`}></i>
+          <i className={`fas fa-chevron-${dropdownOpen ? "up" : "down"}`}></i>
         </div>
       </div>
-      {dropdownOpen && filteredOptions.map((option) => (
-        <label key={option}>
-          <input
-            type="checkbox"
-            value={option}
-            checked={selectedValues.includes(option)}
-            disabled={readonly}
-            onChange={handleCheckboxChange}
-          />
-          {option}
-        </label>
-      ))}
+      {dropdownOpen &&
+        (filteredOptions.length ? (
+          filteredOptions.map((option) => (
+            <label key={option}>
+              <input
+                type="checkbox"
+                value={option}
+                checked={selectedValues.includes(option)}
+                disabled={readonly}
+                onChange={handleCheckboxChange}
+              />
+              {option}
+            </label>
+          ))
+        ) : (
+          <p>No search found</p>
+        ))}
     </div>
   );
 };
